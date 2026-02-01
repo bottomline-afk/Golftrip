@@ -6,18 +6,20 @@ import RetroButton from '../components/ui/RetroButton';
 
 export default function JoinPage() {
   const { trip, loading } = useTrip();
-  const { joinCode, setJoinCode } = usePlayer();
+  const { joinCode, setJoinCode, playerId } = usePlayer();
   const navigate = useNavigate();
 
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
 
-  // Auto-redirect if already joined
+  // Auto-redirect if already joined and has a valid player
   useEffect(() => {
-    if (joinCode) {
+    if (joinCode && playerId) {
       navigate('/home', { replace: true });
+    } else if (joinCode && !playerId) {
+      navigate('/select', { replace: true });
     }
-  }, [joinCode, navigate]);
+  }, [joinCode, playerId, navigate]);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();

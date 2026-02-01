@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { useMemo, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTrip } from '../context/TripContext';
 import { usePlayer } from '../context/PlayerContext';
 import RetroHeader from '../components/layout/RetroHeader';
@@ -10,7 +10,16 @@ import { FORMAT_LABELS } from '../lib/constants';
 
 export default function DashboardPage() {
   const { trip, rounds, scores, loading } = useTrip();
-  const { playerId } = usePlayer();
+  const { playerId, clearPlayer } = usePlayer();
+  const navigate = useNavigate();
+
+  // Redirect to player select if playerId is invalid
+  useEffect(() => {
+    if (!loading && trip && playerId && !trip.players[playerId]) {
+      clearPlayer();
+      navigate('/select', { replace: true });
+    }
+  }, [loading, trip, playerId, clearPlayer, navigate]);
 
   // Calculate overall team totals from all rounds
   const teamTotals = useMemo(() => {
