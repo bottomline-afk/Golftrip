@@ -75,9 +75,16 @@ export default function RoundHubPage() {
             <RetroCard key={group.id} className="space-y-3">
               {/* Group header */}
               <div className="flex items-center justify-between">
-                <p className="font-heading text-[10px] text-dim-white">
-                  GROUP {group.id.toUpperCase()}
-                </p>
+                <div className="flex items-center gap-2">
+                  <p className="font-heading text-[10px] text-dim-white">
+                    GROUP {group.id.toUpperCase()}
+                  </p>
+                  {group.teeTime && (
+                    <span className="font-heading text-[8px] text-neon-yellow bg-neon-yellow/10 border border-neon-yellow/30 rounded-sm px-1.5 py-0.5">
+                      {group.teeTime}
+                    </span>
+                  )}
+                </div>
                 {completedHoles > 0 && (
                   <span className="font-body text-sm text-dim-white/40">
                     {completedHoles}/18 holes

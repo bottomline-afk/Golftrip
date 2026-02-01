@@ -58,6 +58,7 @@ export interface Group {
   id: string;
   teamAPlayerIds: string[];
   teamBPlayerIds: string[];
+  teeTime?: string;
 }
 
 export interface PlayerScores {

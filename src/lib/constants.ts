@@ -141,8 +141,8 @@ export const DEFAULT_ROUNDS: Omit<Round, 'id'>[] = [
     status: 'upcoming',
     courseHoles: dunesClubHoles,
     groups: [
-      { id: 'g1', teamAPlayerIds: ['p1', 'p2'], teamBPlayerIds: ['p5', 'p6'] },
-      { id: 'g2', teamAPlayerIds: ['p3', 'p4'], teamBPlayerIds: ['p7', 'p8'] },
+      { id: 'g1', teamAPlayerIds: ['p1', 'p3'], teamBPlayerIds: ['p8', 'p7'], teeTime: '7:40a' },
+      { id: 'g2', teamAPlayerIds: ['p2', 'p4'], teamBPlayerIds: ['p5', 'p6'], teeTime: '7:50a' },
     ],
   },
   {
@@ -153,8 +153,8 @@ export const DEFAULT_ROUNDS: Omit<Round, 'id'>[] = [
     status: 'upcoming',
     courseHoles: dunesClubHoles,
     groups: [
-      { id: 'g1', teamAPlayerIds: ['p1', 'p2'], teamBPlayerIds: ['p5', 'p6'] },
-      { id: 'g2', teamAPlayerIds: ['p3', 'p4'], teamBPlayerIds: ['p7', 'p8'] },
+      { id: 'g1', teamAPlayerIds: ['p2', 'p1'], teamBPlayerIds: ['p5', 'p7'], teeTime: '1:40p' },
+      { id: 'g2', teamAPlayerIds: ['p3', 'p4'], teamBPlayerIds: ['p8', 'p6'], teeTime: '1:50p' },
     ],
   },
   {
@@ -165,10 +165,10 @@ export const DEFAULT_ROUNDS: Omit<Round, 'id'>[] = [
     status: 'upcoming',
     courseHoles: barefootFazioHoles,
     groups: [
-      { id: 'g1', teamAPlayerIds: ['p1'], teamBPlayerIds: ['p5'] },
-      { id: 'g2', teamAPlayerIds: ['p2'], teamBPlayerIds: ['p6'] },
-      { id: 'g3', teamAPlayerIds: ['p3'], teamBPlayerIds: ['p7'] },
-      { id: 'g4', teamAPlayerIds: ['p4'], teamBPlayerIds: ['p8'] },
+      { id: 'g1', teamAPlayerIds: ['p1'], teamBPlayerIds: ['p5'], teeTime: '8:44a' },
+      { id: 'g2', teamAPlayerIds: ['p3'], teamBPlayerIds: ['p7'], teeTime: '8:44a' },
+      { id: 'g3', teamAPlayerIds: ['p2'], teamBPlayerIds: ['p6'], teeTime: '8:52a' },
+      { id: 'g4', teamAPlayerIds: ['p4'], teamBPlayerIds: ['p8'], teeTime: '8:52a' },
     ],
   },
 ];
