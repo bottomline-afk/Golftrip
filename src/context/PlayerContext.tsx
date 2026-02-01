@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import { createContext, useContext, useState, type ReactNode } from 'react';
 
 interface PlayerContextValue {
   playerId: string | null;
@@ -50,11 +50,6 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
       localStorage.removeItem(STORAGE_KEY_PLAYER);
     } catch { /* noop */ }
   };
-
-  // Auto-sign in anonymously on mount
-  useEffect(() => {
-    import('../lib/firebase').then(({ signInAnon }) => signInAnon());
-  }, []);
 
   return (
     <PlayerContext.Provider value={{ playerId, setPlayerId, clearPlayer, joinCode, setJoinCode }}>

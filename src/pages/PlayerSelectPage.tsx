@@ -5,6 +5,7 @@ import { usePlayer } from '../context/PlayerContext';
 import RetroHeader from '../components/layout/RetroHeader';
 import RetroButton from '../components/ui/RetroButton';
 import NeonText from '../components/ui/NeonText';
+import PlayerAvatar from '../components/PlayerAvatar';
 
 export default function PlayerSelectPage() {
   const { trip, loading } = useTrip();
@@ -74,16 +75,7 @@ export default function PlayerSelectPage() {
         `}
       >
         {/* Avatar circle */}
-        <div
-          className={`
-            w-12 h-12 rounded-full mx-auto mb-2 flex items-center justify-center
-            border-2 ${borderColor} ${isTeam1 ? 'bg-neon-cyan/10' : 'bg-neon-pink/10'}
-          `}
-        >
-          <span className={`font-heading text-sm ${isTeam1 ? 'text-neon-cyan' : 'text-neon-pink'}`}>
-            {player.name.charAt(0)}
-          </span>
-        </div>
+        <PlayerAvatar player={player} size="sm" className="mx-auto mb-2" />
 
         {/* Name */}
         <p className="font-heading text-[10px] text-dim-white mb-1 truncate">

@@ -24,6 +24,9 @@ export interface Player {
   teamId: 'team1' | 'team2';
   avatarUrl?: string;
   isAdmin?: boolean;
+  basePhotoUrl?: string;
+  generatedAvatars?: Record<string, string>;
+  avatarGenerationStatus?: 'idle' | 'generating' | 'complete' | 'error';
 }
 
 export interface ScheduleEvent {

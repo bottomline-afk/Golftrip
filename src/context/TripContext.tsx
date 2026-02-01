@@ -81,7 +81,7 @@ export function TripProvider({ children }: { children: ReactNode }) {
 
   // Listen to scores for each round
   useEffect(() => {
-    if (rounds.length === 0) return;
+    if (!authReady || rounds.length === 0) return;
 
     const unsubs = rounds.map((round) =>
       onSnapshot(
@@ -99,7 +99,7 @@ export function TripProvider({ children }: { children: ReactNode }) {
       )
     );
     return () => unsubs.forEach((u) => u());
-  }, [rounds]);
+  }, [authReady, rounds]);
 
   const seedTrip = useCallback(async () => {
     try {

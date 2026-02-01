@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTrip } from '../context/TripContext';
 import RetroHeader from '../components/layout/RetroHeader';
 import NeonText from '../components/ui/NeonText';
+import PlayerAvatar from '../components/PlayerAvatar';
 
 export default function PlayersPage() {
   const { trip, loading } = useTrip();
@@ -35,9 +36,6 @@ export default function PlayersPage() {
   const renderPlayerCard = (id: string, player: typeof trip.players[string]) => {
     const isTeam1 = player.teamId === 'team1';
     const borderColor = isTeam1 ? 'border-neon-cyan' : 'border-neon-pink';
-    const avatarBg = isTeam1 ? 'bg-neon-cyan/15' : 'bg-neon-pink/15';
-    const avatarBorder = isTeam1 ? 'border-neon-cyan' : 'border-neon-pink';
-    const avatarText = isTeam1 ? 'text-neon-cyan' : 'text-neon-pink';
 
     return (
       <Link key={id} to={`/players/${id}`}>
@@ -48,16 +46,7 @@ export default function PlayersPage() {
           `}
         >
           {/* Avatar */}
-          <div
-            className={`
-              w-14 h-14 rounded-full mx-auto mb-2 flex items-center justify-center
-              border-2 ${avatarBorder} ${avatarBg}
-            `}
-          >
-            <span className={`font-heading text-lg ${avatarText}`}>
-              {player.name.charAt(0).toUpperCase()}
-            </span>
-          </div>
+          <PlayerAvatar player={player} size="md" className="mx-auto mb-2" />
 
           {/* Name */}
           <p className="font-heading text-[10px] text-dim-white text-center truncate mb-1">

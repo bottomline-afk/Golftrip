@@ -12,8 +12,23 @@ import {
   getPlayerStrokeAllocation,
   netScore,
 } from '../lib/scoring';
+import starPowerGif from '../assets/star-power.gif';
 
 type View = 'scoring' | 'strokes';
+
+function PowerStar({ size = 18 }: { size?: number }) {
+  return (
+    <img
+      src={starPowerGif}
+      alt="stroke"
+      width={size}
+      height={size}
+      className="inline-block"
+      style={{ imageRendering: 'pixelated' }}
+      draggable={false}
+    />
+  );
+}
 
 export default function ScorecardPage() {
   const { id: roundId, groupId } = useParams<{ id: string; groupId: string }>();
@@ -295,24 +310,17 @@ export default function ScorecardPage() {
                   <div className="flex items-center justify-between">
                     {/* Player info */}
                     <div className="min-w-0 flex-shrink">
-                      <div className="flex items-center gap-2">
-                        <p className={`font-heading text-[10px] ${teamTextClass} truncate`}>
+                      <div className="flex items-center gap-1.5">
+                        <p className={`font-heading text-[10px] truncate ${
+                          strokesOnHole > 0 ? 'animate-star-power' : teamTextClass
+                        }`}>
                           {player.name.toUpperCase()}
                         </p>
-                        {/* Stroke pill badge */}
                         {strokesOnHole > 0 && (
-                          <span
-                            className={`
-                              inline-flex items-center px-1.5 py-0.5 rounded-full
-                              font-heading text-[7px] tracking-wider
-                              animate-pulse-glow
-                              ${isTeam1
-                                ? 'bg-neon-cyan/15 text-neon-cyan border border-neon-cyan/40'
-                                : 'bg-neon-pink/15 text-neon-pink border border-neon-pink/40'
-                              }
-                            `}
-                          >
-                            {strokesOnHole === 1 ? 'STROKE' : `STROKE x${strokesOnHole}`}
+                          <span className="inline-flex items-center gap-0.5 shrink-0">
+                            {Array.from({ length: strokesOnHole }).map((_, i) => (
+                              <PowerStar key={i} />
+                            ))}
                           </span>
                         )}
                       </div>
@@ -459,7 +467,6 @@ export default function ScorecardPage() {
                 if (!player) return null;
                 const isTeam1 = player.teamId === 'team1';
                 const textClass = isTeam1 ? 'text-neon-cyan' : 'text-neon-pink';
-                const dotBg = isTeam1 ? 'bg-neon-cyan' : 'bg-neon-pink';
                 const playerTotal = totalStrokes[pid] ?? 0;
 
                 return (
@@ -487,13 +494,11 @@ export default function ScorecardPage() {
                           }`}
                         >
                           {strokes > 0 ? (
-                            strokes === 1 ? (
-                              <span className={`w-2.5 h-2.5 rounded-full ${dotBg}`} />
-                            ) : (
-                              <span className={`font-heading text-[8px] ${textClass}`}>
-                                {strokes}
-                              </span>
-                            )
+                            <span className="inline-flex items-center gap-px">
+                              {Array.from({ length: strokes }).map((_, i) => (
+                                <PowerStar key={i} size={12} />
+                              ))}
+                            </span>
                           ) : (
                             <span className="text-dim-white/10 font-body text-xs">-</span>
                           )}

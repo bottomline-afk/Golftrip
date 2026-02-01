@@ -136,6 +136,17 @@ html, body, #root {
   animation: pulse-glow 2s ease-in-out infinite;
 }
 
+/* Star power rainbow animation (Mario invincibility) */
+@keyframes star-power {
+  0%, 100% { color: #00ffff; text-shadow: 0 0 4px #00ffff, 0 0 10px #00ffff; }
+  20% { color: #39ff14; text-shadow: 0 0 4px #39ff14, 0 0 10px #39ff14; }
+  40% { color: #ffff00; text-shadow: 0 0 4px #ffff00, 0 0 10px #ffff00; }
+  60% { color: #ff6600; text-shadow: 0 0 4px #ff6600, 0 0 10px #ff6600; }
+  80% { color: #ff00ff; text-shadow: 0 0 4px #ff00ff, 0 0 10px #ff00ff; }
+}
+.animate-star-power {
+  animation: star-power 1.2s linear infinite;
+}
 /* Slide up animation */
 @keyframes slide-up {
   from { transform: translateY(20px); opacity: 0; }

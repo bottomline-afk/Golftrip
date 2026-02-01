@@ -37,6 +37,11 @@ export default defineConfig({
             handler: 'CacheFirst',
             options: { cacheName: 'gstatic-fonts-cache', expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 } },
           },
+          {
+            urlPattern: /^https:\/\/.*\.firebasestorage\.app\/.*/i,
+            handler: 'CacheFirst',
+            options: { cacheName: 'avatar-cache', expiration: { maxEntries: 100, maxAgeSeconds: 60 * 60 * 24 * 30 } },
+          },
         ],
       },
     }),

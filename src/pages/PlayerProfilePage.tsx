@@ -1,16 +1,21 @@
 import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTrip } from '../context/TripContext';
+import { usePlayer } from '../context/PlayerContext';
 import RetroHeader from '../components/layout/RetroHeader';
 import RetroCard from '../components/ui/RetroCard';
 import NeonText from '../components/ui/NeonText';
+import PlayerAvatar from '../components/PlayerAvatar';
+import AvatarUpload from '../components/AvatarUpload';
+import AvatarStylePicker from '../components/AvatarStylePicker';
 import { calculateMatchResult } from '../lib/scoring';
 import { FORMAT_LABELS } from '../lib/constants';
 import type { Group } from '../lib/types';
 
 export default function PlayerProfilePage() {
   const { id: profileId } = useParams<{ id: string }>();
-  const { trip, rounds, scores, loading } = useTrip();
+  const { trip, rounds, scores, loading, tripId } = useTrip();
+  const { playerId: currentPlayerId } = usePlayer();
 
   const player = useMemo(
     () => (trip && profileId ? trip.players[profileId] : null),
@@ -98,9 +103,8 @@ export default function PlayerProfilePage() {
   const isTeam1 = player.teamId === 'team1';
   const teamColor = isTeam1 ? 'cyan' : 'pink';
   const teamColorClass = isTeam1 ? 'text-neon-cyan' : 'text-neon-pink';
-  const teamBorderClass = isTeam1 ? 'border-neon-cyan' : 'border-neon-pink';
-  const teamBgClass = isTeam1 ? 'bg-neon-cyan/15' : 'bg-neon-pink/15';
   const teamName = isTeam1 ? trip.teams.team1.name : trip.teams.team2.name;
+  const isOwnProfile = currentPlayerId === profileId;
 
   return (
     <div className="min-h-dvh bg-void flex flex-col">
@@ -109,21 +113,20 @@ export default function PlayerProfilePage() {
       <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
         {/* Avatar and basic info */}
         <div className="flex flex-col items-center gap-3">
-          <div
-            className={`
-              w-24 h-24 rounded-full flex items-center justify-center
-              border-4 ${teamBorderClass} ${teamBgClass}
-            `}
-          >
-            <span className={`font-heading text-3xl ${teamColorClass}`}>
-              {player.name.charAt(0).toUpperCase()}
-            </span>
-          </div>
+          <PlayerAvatar player={player} size="lg" />
 
           <NeonText color={teamColor} size="lg" as="h2">
             {player.name.toUpperCase()}
           </NeonText>
         </div>
+
+        {/* Avatar management (own profile only) */}
+        {isOwnProfile && player.avatarGenerationStatus === 'complete' && player.generatedAvatars && (
+          <AvatarStylePicker tripId={tripId} playerId={profileId} player={player} />
+        )}
+        {isOwnProfile && (
+          <AvatarUpload tripId={tripId} playerId={profileId} player={player} />
+        )}
 
         {/* Stats card */}
         <RetroCard glow={teamColor as 'cyan' | 'pink'}>
