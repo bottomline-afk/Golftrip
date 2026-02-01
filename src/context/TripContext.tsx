@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
 import { doc, onSnapshot, setDoc, collection } from 'firebase/firestore';
-import { db } from '../lib/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
+import { db, auth, signInAnon } from '../lib/firebase';
 import { DEFAULT_TRIP, DEFAULT_ROUNDS } from '../lib/constants';
 import type { Trip, Round, PlayerScores } from '../lib/types';
 
@@ -22,9 +23,24 @@ export function TripProvider({ children }: { children: ReactNode }) {
   const [rounds, setRounds] = useState<Round[]>([]);
   const [scores, setScores] = useState<Record<string, Record<string, PlayerScores>>>({});
   const [loading, setLoading] = useState(true);
+  const [authReady, setAuthReady] = useState(false);
+
+  // Wait for auth before subscribing to Firestore
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        await signInAnon();
+        // onAuthStateChanged will fire again once signed in
+        return;
+      }
+      setAuthReady(true);
+    });
+    return unsub;
+  }, []);
 
   // Listen to trip document
   useEffect(() => {
+    if (!authReady) return;
     const unsub = onSnapshot(
       doc(db, 'trips', TRIP_ID),
       (snap) => {
@@ -43,10 +59,11 @@ export function TripProvider({ children }: { children: ReactNode }) {
       }
     );
     return unsub;
-  }, []);
+  }, [authReady]);
 
   // Listen to rounds collection
   useEffect(() => {
+    if (!authReady) return;
     const unsub = onSnapshot(
       collection(db, 'trips', TRIP_ID, 'rounds'),
       (snap) => {
@@ -60,7 +77,7 @@ export function TripProvider({ children }: { children: ReactNode }) {
       }
     );
     return unsub;
-  }, []);
+  }, [authReady]);
 
   // Listen to scores for each round
   useEffect(() => {
