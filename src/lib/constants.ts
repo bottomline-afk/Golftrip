@@ -112,7 +112,7 @@ export const DEFAULT_TRIP: Omit<Trip, 'id'> = {
   schedule: [
     { type: 'travel', date: '2026-03-17', time: '15:00', description: 'Flight to Myrtle Beach - UA3589 EWR\u2192MYR (lands 5:05p)' },
     { type: 'round', date: '2026-03-18', time: '09:00', description: 'Practice Round - Legends' },
-    { type: 'round', date: '2026-03-18', time: '13:00', description: 'Round 1 - Grand Dunes (4v4 Best 2)', roundId: 'r1' },
+    { type: 'round', date: '2026-03-18', time: '13:25', description: 'Round 1 - Grand Dunes (4v4 Best 2) - Tee 1:25/1:34', roundId: 'r1' },
     { type: 'round', date: '2026-03-19', time: '07:40', description: 'Round 2 - Dunes Club (2v2 Best Ball) - Tee 7:40/7:50a', roundId: 'r2' },
     { type: 'round', date: '2026-03-19', time: '13:40', description: 'Round 3 - Dunes Club (2v2 Best Ball) - Tee 1:40/1:50p', roundId: 'r3' },
     { type: 'dinner', date: '2026-03-19', time: '19:00', description: 'NY Prime Dinner' },
