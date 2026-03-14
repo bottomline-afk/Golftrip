@@ -125,7 +125,7 @@ export const DEFAULT_ROUNDS: Omit<Round, 'id'>[] = [
   {
     courseName: 'Grand Dunes',
     date: '2026-03-18',
-    teeTime: '13:00',
+    teeTime: '13:25',
     format: '4v4_best2',
     status: 'upcoming',
     courseHoles: grandDunesHoles,
