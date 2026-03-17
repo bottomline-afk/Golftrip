@@ -129,7 +129,6 @@ export default function AvatarUpload({ tripId, playerId, player }: AvatarUploadP
         ref={fileRef}
         type="file"
         accept="image/*"
-        capture="user"
         className="hidden"
         onChange={handleFileSelect}
       />
