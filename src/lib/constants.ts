@@ -97,7 +97,7 @@ export const DEFAULT_TRIP: Omit<Trip, 'id'> = {
   dates: { start: '2026-03-17', end: '2026-03-21' },
   teams: {
     team1: { name: 'Birdie Bandits', color: '#00ffff' },
-    team2: { name: 'Pixel Wolves', color: '#ff00ff' },
+    team2: { name: "Killer B's", color: '#ff00ff' },
   },
   players: {
     p1: { name: 'Ted', handicapIndex: 10, strokes: 0, teamId: 'team1', avatarUrl: '' },
